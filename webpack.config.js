@@ -3,7 +3,7 @@ var webpack = require('webpack');
 
 module.exports = {
   entry: {
-    app: path.join(__dirname, 'index'),
+    app: ['babel-polyfill', path.join(__dirname, 'index')],
     vendors: [
       'react',
       'react-router',
@@ -42,8 +42,11 @@ module.exports = {
     loaders: [
       {
         test: /\.js$/,
-        loader: 'babel?stage=0', // enable ES7 experimental features
-        include: __dirname
+        loader: 'babel-loader', // enable ES7 experimental features
+        include: __dirname,
+        exclude: [
+          path.resolve(__dirname, "node_modules"),
+        ],
       },
       {
         test: /\.s?css$/,
